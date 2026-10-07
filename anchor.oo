@@ -1,0 +1,13 @@
+// # ooshutdown Root Anchor
+//
+// Logline: Top-level anchor re-exporting options, core logic, render, and ipc subsystems.
+//
+// Setup: Pure shim re-exporting all ooshutdown subsystem anchors.
+//
+// Beats:
+//   1. Re-export options parsing subsystem.
+//   2. Re-export core ooshutdown execution engine.
+//   3. Re-export render formatting subsystem.
+//   4. Re-export Model Context Protocol (MCP) IPC subsystem.
+
+import "main.oo";

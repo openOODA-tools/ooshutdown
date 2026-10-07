@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=ooshutdown-bin
+_pkgname=ooshutdown
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Schedules system shutdown, poweroff, or halt via systemd logind IPC."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/ooshutdown"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('ooshutdown')
+conflicts=('ooshutdown')
+source_x86_64=("${url}/releases/download/v${pkgver}/ooshutdown-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/ooshutdown-linux-x86_64" "${pkgdir}/usr/bin/ooshutdown"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/ooshutdown-uninstall"
+}

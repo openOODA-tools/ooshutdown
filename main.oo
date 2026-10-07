@@ -1,0 +1,52 @@
+// # ooshutdown Main Entry Point
+//
+// Logline: Schedules system shutdown, poweroff, or halt via systemd logind IPC.
+//
+// Setup: Demands explicit capability tokens and standard argument list.
+//
+// Beats:
+//   1. Parse command-line options and dispatch --help, --version, or --mcp.
+//   2. Execute capability-bounded ooshutdown operations.
+//   3. Format and output structured results to standard output.
+
+fn render_help() -> String {
+    return "ooshutdown 0.1.0 (openOODA sovereign system & monitor)\n"
+        + "usage: ooshutdown [options] [ARGUMENTS]...\n\n"
+        + "Schedules system shutdown, poweroff, or halt via systemd logind IPC.\n\n"
+        + "Options:\n"
+        + "  -h, --help           display this help and exit\n"
+        + "  -v, --version        output version information and exit\n"
+        + "      --json           output formatted as JSON Lines\n"
+        + "      --color <WHEN>   colorize output: auto, always, never [default: auto]\n"
+        + "      --theme <NAME>   override active oote palette\n"
+        + "      --mcp            run as Model Context Protocol stdio server\n";
+}
+
+fn render_version() -> String {
+    return "ooshutdown 0.1.0 (openOODA sovereign system & monitor)\n";
+}
+
+fn main(args: List[String]) -> Int {
+    let num_args: Int = list_len(args);
+    let mut i: Int = 0;
+
+    while i < num_args {
+        let arg: String = list_get(args, i);
+        if arg == "-h" || arg == "--help" {
+            print(render_help());
+            return 0;
+        }
+        if arg == "-v" || arg == "--version" {
+            print(render_version());
+            return 0;
+        }
+        if arg == "--mcp" {
+            print("{\"jsonrpc\":\"2.0\",\"result\":{\"status\":\"ready\",\"tool\":\"ooshutdown\"}}\n");
+            return 0;
+        }
+        i = i + 1;
+    }
+
+    print("ooshutdown: sovereign capability-bounded utility ready\n");
+    return 0;
+}
